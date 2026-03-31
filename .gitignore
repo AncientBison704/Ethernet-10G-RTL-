@@ -2,5 +2,5 @@ sim/
 *.vcd
 *.out
 *.log
-*.tmpp
+*.tmp
 
