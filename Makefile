@@ -1,18 +1,9 @@
-################################################################################
-# Makefile for 10GbE Packet Processor (simulation-only)
-#
-# Targets:
-#   make test-rx     - Run XGMII RX testbench
-#   make wave-rx     - View RX waveforms
-#   make clean       - Remove generated files
-################################################################################
 
 RTL_DIR = rtl
 TB_DIR  = tb
 
 IVFLAGS = -g2012 -I$(RTL_DIR)
 
-# Week 1: XGMII RX
 RX_RTL = $(RTL_DIR)/eth_pkg.sv $(RTL_DIR)/xgmii_rx.sv
 RX_TB  = $(TB_DIR)/xgmii_rx_tb.sv
 
@@ -27,8 +18,6 @@ sim/xgmii_rx_tb: $(RX_RTL) $(RX_TB)
 wave-rx:
 	gtkwave sim/xgmii_rx_tb.vcd &
 
-
-# Week 2: FCS check
 FCS_RTL = $(RTL_DIR)/eth_pkg.sv $(RTL_DIR)/eth_fcs_check.sv
 FCS_TB  = $(TB_DIR)/eth_fcs_check_tb.sv
 
@@ -44,7 +33,6 @@ wave-fcs:
 	gtkwave sim/eth_fcs_check_tb.vcd &
 
 
-# Week 2 end-to-end: XGMII RX + FCS check
 RX_FCS_RTL = $(RTL_DIR)/eth_pkg.sv $(RTL_DIR)/xgmii_rx.sv $(RTL_DIR)/eth_fcs_check.sv $(RTL_DIR)/xgmii_rx_fcs_pipe.sv
 RX_FCS_TB  = $(TB_DIR)/xgmii_rx_fcs_pipe_tb.sv
 
@@ -59,7 +47,6 @@ sim/xgmii_rx_fcs_pipe_tb: $(RX_FCS_RTL) $(RX_FCS_TB)
 wave-rx-fcs:
 	gtkwave sim/xgmii_rx_fcs_pipe_tb.vcd &
 
-# Week 3: Header parser + filter (end-to-end)
 W3_RTL = $(RTL_DIR)/eth_pkg.sv $(RTL_DIR)/xgmii_rx.sv $(RTL_DIR)/eth_fcs_check.sv \
          $(RTL_DIR)/eth_header_parse.sv $(RTL_DIR)/pkt_filter.sv
 W3_TB  = $(TB_DIR)/header_filter_tb.sv
@@ -75,7 +62,6 @@ sim/header_filter_tb: $(W3_RTL) $(W3_TB)
 wave-filter:
 	gtkwave sim/header_filter_tb.vcd &
 
-# Week 4: TX pipeline + loopback
 W4_RTL = $(RTL_DIR)/eth_pkg.sv $(RTL_DIR)/xgmii_rx.sv $(RTL_DIR)/eth_fcs_check.sv \
          $(RTL_DIR)/eth_fcs_insert.sv $(RTL_DIR)/xgmii_tx.sv $(RTL_DIR)/tx_pipeline.sv
 W4_TB  = $(TB_DIR)/loopback_tb.sv
