@@ -11,4 +11,4 @@ A SystemVerilog implementation of a modular 10GbE datapath.
 - TX datapath
 
 ## Verification
-Testbenches written in SystemVerilog using Icarus Verilog.
+Testbenches written in SystemVerilog using Icarus Verilog
